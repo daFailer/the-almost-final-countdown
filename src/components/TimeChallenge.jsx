@@ -1,5 +1,7 @@
 import { useState, useRef } from 'react';
 
+import ResultModal from './ResultModal';
+
 const TimeChallenge = ({title, targetTime}) => {
   const [timerStarted, setTimerStarted] = useState(false);
   const [timerExpired, setTimerExpired] = useState(false);
@@ -18,15 +20,13 @@ const TimeChallenge = ({title, targetTime}) => {
     setTimerStarted(true);
 
     timer.current = setTimeout(() => {
-      setTimerExpired(true);
-
-      setTimerStarted((false));
+      handleStop(true);
     }, targetTime * 1000)
   })
 
-  const handleStop = (() => {
+  const handleStop = ((isExpired = false) => {
     setTimerStarted(false);
-    setTimerExpired(false);
+    setTimerExpired(isExpired);
 
     clearTimeout(timer.current);
   })
@@ -39,7 +39,7 @@ const TimeChallenge = ({title, targetTime}) => {
           {targetTime} second{targetTime === 1 ? '' : 's'}
         </p>
         <p>
-          <button onClick={timerStarted ? handleStop : handleStart}>{buttonLabelPrefix} Challenge</button>
+          <button onClick={timerStarted ? () => handleStop(false) : handleStart}>{buttonLabelPrefix} Challenge</button>
         </p>
         <p className={timerStarted ? 'active' : undefined}>
           Timer {timerStatusSuffix}
