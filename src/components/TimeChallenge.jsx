@@ -7,6 +7,7 @@ const TimeChallenge = ({title, targetTime}) => {
   const [timerExpired, setTimerExpired] = useState(false);
 
   const timer = useRef();
+  const dialog = useRef();
 
   let buttonLabelPrefix = 'Start';
   let timerStatusSuffix = 'inactive';
@@ -27,17 +28,18 @@ const TimeChallenge = ({title, targetTime}) => {
   const handleStop = ((isExpired = false) => {
     setTimerStarted(false);
     setTimerExpired(isExpired);
+    dialog.current.showModal(); 
 
     clearTimeout(timer.current);
   })
 
   return (
     <>
-      {timerExpired && <ResultModal targetTime={targetTime} result="lost" />}
+      <ResultModal ref={dialog} targetTime={targetTime} result="lost" />
       <section className="challenge">
         <h2>{title}</h2>
         <p className="challenge-time">
-          {targetTime} second{targetTime === 1 ? '' : 's'}
+          {targetTime} second{targetTime === 1 ? '' : 's'} 
         </p>
         <p>
           <button onClick={timerStarted ? () => handleStop(false) : handleStart}>{buttonLabelPrefix} Challenge</button>
