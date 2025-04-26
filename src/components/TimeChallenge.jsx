@@ -28,7 +28,7 @@ const TimeChallenge = ({title, targetTime}) => {
   const handleStop = ((isExpired = false) => {
     setTimerStarted(false);
     setTimerExpired(isExpired);
-    dialog.current.showModal(); 
+    dialog.current.open(); 
 
     clearTimeout(timer.current);
   })
