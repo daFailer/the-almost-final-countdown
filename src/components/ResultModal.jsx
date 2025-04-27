@@ -15,7 +15,7 @@ const ResultModal = ({ ref,  result, targetTime, timeRemaining, onReset }) => {
   });
 
   return (
-    <dialog ref={dialog} className="result-modal">
+    <dialog ref={dialog} className="result-modal" onClose={onReset}>
       {userLost && <h2>You lost</h2>}
       <p>
         The target time was <strong>{targetTime} seconds.</strong>
@@ -23,7 +23,7 @@ const ResultModal = ({ ref,  result, targetTime, timeRemaining, onReset }) => {
       <p>
         You stopped the timer with <strong>{formattedRemainingTime} seconds left.</strong>
       </p>
-      <form method="dialog" onSubmit={onReset}>
+      <form method="dialog">
         <button>Close</button>
       </form>
     </dialog>
