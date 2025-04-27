@@ -26,7 +26,7 @@ const TimeChallenge = ({title, targetTime}) => {
     }, 10)
   })
 
-  const handleStop = ((isExpired = false) => {
+  const handleStop = (() => {
     dialog.current.open();
     clearInterval(timer.current);
   })
